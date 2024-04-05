@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tentek-cm
+  namespace: tentek
+data:
+  app.properties: |
+    food=dinner
+    property2=value2
+

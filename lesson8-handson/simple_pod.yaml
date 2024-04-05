@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: script-pod
+spec:
+  containers:
+  - name: ubuntu
+    image: ubuntu
+    command: ["/bin/bash", "-c"]
+    args:
+      - |
+        echo "Hello, Kubernetes!";
+        echo "Running a script inside a pod...";
+        sleep 30;
+        echo "Script execution finished.";
