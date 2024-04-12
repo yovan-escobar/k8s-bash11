@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        volumeMounts:
+        - name: temp-storage
+          mountPath: /var/lib/pgsql/data
+        env:
+        - name: POSTGRES_USER
+          value: "tentek"
+        - name: POSTGRES_PASSWORD
+          value: "tentek"
+        - name: POSTGRES_DB
+          value: "tentek"
+      volumes:
+      - name: temp-storage
+        emptyDir: {}

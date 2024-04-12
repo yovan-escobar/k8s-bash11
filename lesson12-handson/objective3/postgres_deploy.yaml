@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /data # Ensure this matches the PGDATA path
+        env:
+        - name: POSTGRES_USER
+          value: "tentek"
+        - name: POSTGRES_PASSWORD
+          value: "tentek"
+        - name: POSTGRES_DB
+          value: "tentek"
+        - name: PGDATA
+          value: "/data/pgdata" # Set PGDATA to the same path as the volume mount
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
